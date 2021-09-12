@@ -7,8 +7,26 @@ import { client } from ".";
 
 function App() {
   const onrefetcher = async () => {
-    await client.refetchQueries({
-      include: "all", // Consider using "active" instead!
+    const results = await client.refetchQueries({
+      // include: "all", // Consider using "active" instead!
+      updateCache(cache) {
+        cache.evict({ fieldName: "dog" });
+      },
+
+      onQueryUpdated(observableQuery) {
+        // Logging and/or debugger breakpoints can be useful in development to
+        // understand what client.refetchQueries is doing.
+        console.log(`Examining ObservableQuery ${observableQuery.queryName}`);
+
+        // Proceed with the default refetching behavior, as if onQueryUpdated
+        // was not provided.
+        return true;
+      },
+    });
+
+    results.forEach((result) => {
+      // These results will be ApolloQueryResult<any> objects, after all
+      // results have been refetched from the network.
     });
   };
   return (
