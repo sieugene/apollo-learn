@@ -9,7 +9,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 const EXCHANGE_RATES_URI = "https://48p1r2roz4.sse.codesandbox.io";
 const DOGS_URI = "https://71z1g.sse.codesandbox.io/";
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   uri: DOGS_URI,
   cache: new InMemoryCache(),
 });
